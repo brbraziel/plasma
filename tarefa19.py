@@ -155,6 +155,7 @@ class PSO:
             'X1': x1,
             'X2': x2,
             'X3': x3,
+            'Chi': self.chis
         }
         df = DataFrame(data)
 

@@ -73,7 +73,7 @@ class DadosMatriz:
             modes_time = m[mask]
             #print(freqs_time, modes_time) FREQUÊNCIAS E MODES DIFERENTES DE NAN
             f0, f1, f2 = self.find_coefs(self.F, freqs_time, modes_time)
-            chi = self.chiquadrado(f0, f1, f2, modes_time, position)
+            chi = self.chiquadrado(self.matriz, f0, f1, f2, modes_time, position)
             #print('line: ', line, 'f0: ', f0, 'f1: ', f1, 'f2: ', f2, 'chi: ', chi)
             self.a.append(f0)
             self.b.append(f1)
@@ -105,13 +105,13 @@ class DadosMatriz:
     def F(self, m, c0, c1, c2):
         return (c0**2 + (m * c1)**2)**0.5 - m * c2
 
-    def chiquadrado(self, a, b, c, curvas, pos):
+    def chiquadrado(self, mat, a, b, c, curvas, pos):
         resposta = []
         chi = 0
 
         for m in curvas:
-            resposta=np.sqrt((a*a)+(b*b)*(m*m))+m*c
-            chi += (self.matriz[pos-1, m-1] - resposta)**2 
+            resposta = np.sqrt((a*a)+(b*b)*(m*m))+m*c
+            chi += (mat[pos-1, m-1] - resposta)**2 
 
         return chi
 
